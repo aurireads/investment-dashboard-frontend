@@ -8,7 +8,7 @@ import {
   fetchMonthlyPerformance,
 } from '@/lib/api';
 import { DashboardMetrics, TopAdvisorMetric, MonthlyPerformance } from '@/types';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, formatPercentage } from '@/lib/utils';
 import { NetNewMoneyChart } from './components/net-new-money/components/NetNewMoneyChart';
 import { TopAdvisorsTable } from './components/net-new-money/components/TopAdvisorsTable';
 
@@ -47,7 +47,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold">{formatCurrency(metrics.total_revenue_january.toNumber())}</div>
-            <p className="text-sm mt-2">{metrics.total_revenue_change.toFixed(2)}% <span className="text-xs">vs. last year</span></p>
+            <p className="text-sm mt-2">{formatPercentage(metrics.total_revenue_change)} <span className="text-xs">vs. last year</span></p>
           </CardContent>
         </Card>
         
@@ -58,7 +58,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold">{formatCurrency(metrics.nnm_semester.toNumber())}</div>
-            <p className="text-sm mt-2">{metrics.nnm_semester_change.toFixed(2)}% <span className="text-xs">vs. last semester</span></p>
+            <p className="text-sm mt-2">{formatPercentage(metrics.nnm_semester_change)} <span className="text-xs">vs. last semester</span></p>
           </CardContent>
         </Card>
 
@@ -69,7 +69,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold">{formatCurrency(metrics.nnm_monthly.toNumber())}</div>
-            <p className="text-sm mt-2">{metrics.nnm_monthly_change.toFixed(2)}% <span className="text-xs">vs. last month</span></p>
+            <p className="text-sm mt-2">{formatPercentage(metrics.nnm_monthly_change)} <span className="text-xs">vs. last month</span></p>
           </CardContent>
         </Card>
         

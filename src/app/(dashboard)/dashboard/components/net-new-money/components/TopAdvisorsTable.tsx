@@ -27,7 +27,7 @@ export function TopAdvisorsTable({ data }: { data: TopAdvisorMetric[] }) {
           <TableRow key={advisor.advisor_id}>
             <TableCell>{index + 1}</TableCell>
             <TableCell>{advisor.advisor_name}</TableCell>
-            <TableCell>{formatCurrency(advisor.revenue)}</TableCell>
+            <TableCell>{formatCurrency(advisor.revenue.toNumber())}</TableCell>
             <TableCell>{advisor.revenue_percentage.toFixed(2)}%</TableCell>
           </TableRow>
         ))}
