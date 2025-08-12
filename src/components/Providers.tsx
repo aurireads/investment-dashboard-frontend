@@ -1,16 +1,15 @@
 'use client';
 
-import { ThemeProvider } from 'next-themes';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactNode } from 'react';
 
-const queryClient = new QueryClient();
+interface ProvidersProps {
+  children: ReactNode;
+}
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: ProvidersProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        {children}
-      </ThemeProvider>
-    </QueryClientProvider>
+    <div className="min-h-screen bg-gray-50">
+      {children}
+    </div>
   );
 }

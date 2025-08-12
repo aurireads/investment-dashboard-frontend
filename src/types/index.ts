@@ -1,4 +1,4 @@
-import { Decimal } from 'decimal.js'; // Importar Decimal ou usar 'string' se a API retornar string
+import {Decimal} from 'decimal.js'; 
 
 export interface DashboardMetrics {
   nnm_current_week: Decimal;

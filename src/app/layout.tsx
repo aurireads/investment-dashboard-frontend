@@ -1,7 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { QueryClientProvider } from '@/components/QueryClientProvider';
+import { Providers } from '@/components/Providers';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { Toaster } from 'sonner';
@@ -21,20 +20,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryClientProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="flex min-h-screen">
-              <Sidebar />
-              <div className="flex-1 flex flex-col">
-                <Header />
-                <main className="flex-1 p-8 overflow-y-auto">
-                  {children}
-                </main>
-              </div>
+        <Providers>
+          <div className="flex min-h-screen">
+            <Sidebar />
+            <div className="flex-1 flex flex-col">
+              <Header />
+              <main className="flex-1 p-8 overflow-y-auto">
+                {children}
+              </main>
             </div>
-            <Toaster position="bottom-right" />
-          </ThemeProvider>
-        </QueryClientProvider>
+          </div>
+          <Toaster position="bottom-right" />
+        </Providers>
       </body>
     </html>
   );
