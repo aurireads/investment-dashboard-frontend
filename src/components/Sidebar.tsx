@@ -18,7 +18,7 @@ import {
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
-  { name: 'Net New Money', href: '/dashboard/net-new-money', icon: TrendingUp },
+  { name: 'Net New Money', href: '/net-new-money', icon: TrendingUp },
   { name: 'Custódia', href: '/custodia', icon: PieChart },
   { name: 'Receitas', href: '/receitas', icon: DollarSign },
   { name: 'Comissões', href: '/comissoes', icon: Users },
@@ -51,11 +51,17 @@ export function Sidebar() {
           )}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-1 rounded-lg hover:bg-gray-800"
+            className="p-1 rounded-lg hover:bg-gray-800 transition-colors"
           >
             {isCollapsed ? <Menu className="w-5 h-5" /> : <X className="w-5 h-5" />}
           </button>
         </div>
+        {!isCollapsed && (
+          <div className="mt-2 flex items-center">
+            <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+            <span className="text-xs text-gray-400">Modo escuro</span>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}
@@ -72,9 +78,9 @@ export function Sidebar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+              className={`group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative ${
                 isActive
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-blue-600 text-white shadow-lg'
                   : 'text-gray-300 hover:text-white hover:bg-gray-800'
               }`}
             >
@@ -84,8 +90,11 @@ export function Sidebar() {
               {!isCollapsed && (
                 <span className="ml-3 truncate">{item.name}</span>
               )}
+              {isActive && !isCollapsed && (
+                <div className="absolute right-2 w-2 h-2 bg-white rounded-full"></div>
+              )}
               {isCollapsed && (
-                <div className="absolute left-16 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
+                <div className="absolute left-16 ml-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap shadow-lg border border-gray-700">
                   {item.name}
                 </div>
               )}
@@ -104,14 +113,14 @@ export function Sidebar() {
           <Link
             key={item.name}
             href={item.href}
-            className="group flex items-center px-3 py-2 text-sm font-medium text-gray-300 rounded-lg hover:text-white hover:bg-gray-800 transition-colors"
+            className="group flex items-center px-3 py-3 text-sm font-medium text-gray-300 rounded-lg hover:text-white hover:bg-gray-800 transition-all duration-200 relative"
           >
             <item.icon className="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-white" />
             {!isCollapsed && (
               <span className="ml-3 truncate">{item.name}</span>
             )}
             {isCollapsed && (
-              <div className="absolute left-16 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
+              <div className="absolute left-16 ml-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap shadow-lg border border-gray-700">
                 {item.name}
               </div>
             )}

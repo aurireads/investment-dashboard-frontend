@@ -1,20 +1,20 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { ChevronDown } from 'lucide-react';
 
 const topAdvisorsData = [
-  { name: 'Advisor 1', value: 'R$ 1.3 M', color: '#FEF3C7' },
-  { name: 'Advisor 2', value: 'R$ 1.2 M', color: '#E5E7EB' },
-  { name: 'Advisor 3', value: 'R$ 900 K', color: '#FDE68A' },
-  { name: 'Advisor 4', value: 'R$ 800 K', color: '#D1FAE5' },
-  { name: 'Advisor 5', value: 'R$ 850 K', color: '#D1FAE5' },
-  { name: 'Advisor 6', value: 'R$ 840 K', color: '#D1FAE5' },
-  { name: 'Advisor 7', value: 'R$ 810 K', color: '#D1FAE5' },
-  { name: 'Advisor 8', value: 'R$ 790 K', color: '#D1FAE5' },
-  { name: 'Advisor 9', value: 'R$ 600 K', color: '#D1FAE5' },
-  { name: 'Advisor 10', value: 'R$ 500 K', color: '#D1FAE5' },
+  { name: 'Advisor 1', value: 'R$ 1.3 M', progress: 85 },
+  { name: 'Advisor 2', value: 'R$ 1.2 M', progress: 80 },
+  { name: 'Advisor 3', value: 'R$ 900 K', progress: 65 },
+  { name: 'Advisor 4', value: 'R$ 800 K', progress: 60 },
+  { name: 'Advisor 5', value: 'R$ 850 K', progress: 70 },
+  { name: 'Advisor 6', value: 'R$ 840 K', progress: 68 },
+  { name: 'Advisor 7', value: 'R$ 810 K', progress: 62 },
+  { name: 'Advisor 8', value: 'R$ 790 K', progress: 58 },
+  { name: 'Advisor 9', value: 'R$ 600 K', progress: 45 },
+  { name: 'Advisor 10', value: 'R$ 500 K', progress: 38 },
 ];
 
 const pieData = [
@@ -32,9 +32,9 @@ export default function RevenuePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Receitas</h1>
-        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border">
-          <span className="text-sm">Janeiro</span>
-          <ChevronDown className="w-4 h-4" />
+        <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border shadow-sm">
+          <span className="text-sm text-gray-700">Janeiro</span>
+          <ChevronDown className="w-4 h-4 text-gray-500" />
         </div>
       </div>
 
@@ -46,25 +46,27 @@ export default function RevenuePage() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-gray-900">Receita Total em Janeiro</h2>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-3xl font-bold text-purple-600">R$ 7.160.000</span>
-                <span className="text-green-600 text-sm font-medium">↗ 37.8%</span>
+              <div className="flex items-center gap-3 mt-2">
+                <span className="text-4xl font-bold text-purple-600">R$ 7.160.000</span>
+                <span className="text-green-600 text-sm font-medium bg-green-100 px-2 py-1 rounded-full">↗ 37.8%</span>
               </div>
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-600">Total de Assessores</p>
-              <p className="text-2xl font-bold">30</p>
-              <span className="text-green-600 text-sm">↗</span>
+              <div className="flex items-center justify-end gap-1">
+                <p className="text-2xl font-bold text-gray-900">30</p>
+                <span className="text-green-600 text-sm">●</span>
+              </div>
             </div>
           </div>
 
           {/* Top 10 Assessores Geradores de Receita */}
           <Card className="bg-white">
             <CardHeader>
-              <CardTitle>Top 10 Assessores Geradores de Receita</CardTitle>
+              <CardTitle className="text-lg font-semibold">Top 10 Assessores Geradores de Receita</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {topAdvisorsData.map((advisor, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
@@ -76,17 +78,16 @@ export default function RevenuePage() {
                       </div>
                     </div>
                     <div className="flex-1 mx-4">
-                      <div 
-                        className="h-6 rounded-full relative"
-                        style={{ backgroundColor: advisor.color }}
-                      >
+                      <div className="w-full bg-yellow-100 rounded-full h-6 relative overflow-hidden">
                         <div 
-                          className="h-full bg-yellow-400 rounded-full"
-                          style={{ width: `${Math.random() * 80 + 20}%` }}
+                          className="h-full bg-yellow-400 rounded-full transition-all duration-300"
+                          style={{ width: `${advisor.progress}%` }}
                         ></div>
                       </div>
                     </div>
-                    <span className="text-sm font-medium min-w-[80px] text-right">{advisor.value}</span>
+                    <span className="text-sm font-medium min-w-[80px] text-right text-gray-900">
+                      {advisor.value}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -97,7 +98,7 @@ export default function RevenuePage() {
         {/* Right Column - Pie Chart */}
         <Card className="bg-white">
           <CardHeader>
-            <CardTitle>Receita por Assessor (%)</CardTitle>
+            <CardTitle className="text-lg font-semibold">Receita por Assessor (%)</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-64 flex items-center justify-center">
@@ -107,9 +108,9 @@ export default function RevenuePage() {
                     data={pieData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={40}
-                    outerRadius={80}
-                    paddingAngle={5}
+                    innerRadius={50}
+                    outerRadius={90}
+                    paddingAngle={2}
                     dataKey="value"
                   >
                     {pieData.map((entry, index) => (
@@ -124,16 +125,16 @@ export default function RevenuePage() {
             <div className="mt-6 space-y-3">
               {pieData.map((item, index) => (
                 <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-3">
                     <div 
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: COLORS[index] }}
                     ></div>
                     <span className="text-sm text-gray-700">{item.name}</span>
                   </div>
-                  <div className="text-right">
-                    <span className="text-sm font-medium">R$ 880 K</span>
-                    <div className="w-3 h-3 bg-green-500 rounded-full inline-block ml-2"></div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-medium text-gray-900">R$ 880 K</span>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                   </div>
                 </div>
               ))}

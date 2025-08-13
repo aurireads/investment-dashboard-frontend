@@ -34,7 +34,7 @@ export default function CustodyPage() {
       {/* Header Tabs */}
       <div className="bg-white rounded-lg shadow-sm">
         <div className="flex border-b border-gray-200">
-          <button className="px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-tl-lg">
+          <button className="px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-tl-lg border-b-2 border-blue-600">
             Visão Escritório
           </button>
           <button className="px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">
@@ -47,20 +47,19 @@ export default function CustodyPage() {
       </div>
 
       {/* Date Period Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
         <Card className="bg-white">
           <CardContent className="p-6 text-center">
-            <p className="text-sm text-gray-600">Data inicial</p>
-            <p className="text-lg font-semibold">01/01/2024</p>
+            <p className="text-sm text-gray-600 mb-1">Data inicial</p>
+            <p className="text-lg font-semibold text-gray-900">01/01/2024</p>
           </CardContent>
         </Card>
         <Card className="bg-white">
           <CardContent className="p-6 text-center">
-            <p className="text-sm text-gray-600">Data final</p>
-            <p className="text-lg font-semibold">01/01/2025</p>
+            <p className="text-sm text-gray-600 mb-1">Data final</p>
+            <p className="text-lg font-semibold text-gray-900">01/01/2025</p>
           </CardContent>
         </Card>
-        <div></div>
       </div>
 
       {/* Main Metrics Cards */}
@@ -70,7 +69,7 @@ export default function CustodyPage() {
             <h3 className="text-sm font-medium opacity-90">Início do Período</h3>
             <p className="text-3xl font-bold">R$ 1.155 B</p>
             <div className="flex items-center mt-2">
-              <span className="text-green-300">↗ 24.3%</span>
+              <span className="text-green-200">↗ 24.3%</span>
             </div>
           </CardContent>
         </Card>
@@ -80,7 +79,7 @@ export default function CustodyPage() {
             <h3 className="text-sm font-medium opacity-90">Fim do Período</h3>
             <p className="text-3xl font-bold">R$ 1.400 B</p>
             <div className="flex items-center mt-2">
-              <span className="text-blue-300">↗ 17.5%</span>
+              <span className="text-blue-200">↗ 17.5%</span>
             </div>
           </CardContent>
         </Card>
@@ -88,15 +87,17 @@ export default function CustodyPage() {
         <Card className="bg-white">
           <CardContent className="p-6">
             <h3 className="text-sm font-medium text-gray-600">Variação Total</h3>
-            <p className="text-3xl font-bold text-gray-900">📈 36.8%</p>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-3xl font-bold text-gray-900">📈 36.8%</span>
+            </div>
             <div className="mt-4 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Equivalência</span>
-                <span className="font-medium">📊 17.6%</span>
+                <span className="font-medium text-gray-900">📊 17.6%</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Rentabilidade real</span>
-                <span className="font-medium">📈 19.60%</span>
+                <span className="font-medium text-gray-900">📈 19.60%</span>
               </div>
             </div>
           </CardContent>
@@ -110,10 +111,10 @@ export default function CustodyPage() {
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle>AuC</CardTitle>
-              <div className="flex gap-2 text-sm">
-                <span className="text-blue-600">Semestral</span>
+              <div className="flex gap-3 text-sm">
+                <span className="text-gray-500">Semestral</span>
                 <span className="text-gray-500">Mensal</span>
-                <span className="text-gray-500">2024</span>
+                <span className="text-blue-600 font-medium">2024</span>
                 <span className="text-gray-500">Max</span>
               </div>
             </div>
@@ -122,8 +123,13 @@ export default function CustodyPage() {
           <CardContent>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={aucData}>
-                  <XAxis dataKey="month" axisLine={false} tickLine={false} />
+                <LineChart data={aucData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <XAxis 
+                    dataKey="month" 
+                    axisLine={false} 
+                    tickLine={false}
+                    tick={{ fontSize: 12, fill: '#6B7280' }}
+                  />
                   <YAxis hide />
                   <Line 
                     type="monotone" 
@@ -131,6 +137,7 @@ export default function CustodyPage() {
                     stroke="#8B5CF6" 
                     strokeWidth={3}
                     dot={false}
+                    strokeDasharray="0"
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -143,8 +150,8 @@ export default function CustodyPage() {
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle>Captação</CardTitle>
-              <div className="flex gap-2 text-sm">
-                <span className="text-blue-600">Diário</span>
+              <div className="flex gap-3 text-sm">
+                <span className="text-blue-600 font-medium">Diário</span>
                 <span className="text-gray-500">Semanal</span>
                 <span className="text-gray-500">2024</span>
               </div>
@@ -153,10 +160,20 @@ export default function CustodyPage() {
           <CardContent>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={captacaoData}>
-                  <XAxis dataKey="month" axisLine={false} tickLine={false} />
+                <BarChart data={captacaoData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <XAxis 
+                    dataKey="month" 
+                    axisLine={false} 
+                    tickLine={false}
+                    tick={{ fontSize: 12, fill: '#6B7280' }}
+                  />
                   <YAxis hide />
-                  <Bar dataKey="value" fill="#3B82F6" radius={[2, 2, 0, 0]} />
+                  <Bar 
+                    dataKey="value" 
+                    fill="#3B82F6" 
+                    radius={[3, 3, 0, 0]}
+                    maxBarSize={50}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>

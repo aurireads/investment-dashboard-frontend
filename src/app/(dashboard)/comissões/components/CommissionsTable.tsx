@@ -10,57 +10,49 @@ const commissionsData = [
     name: 'Jane Cooper',
     grossRevenue: 'R$ 47.079,23',
     totalCommission: 'R$ 100.075,23',
-    meta: 'R$ 193.075,23',
-    status: 'cumprida'
+    status: 'Cumprida'
   },
   {
     name: 'Math Smith',
     grossRevenue: 'R$ 117.079,23',
     totalCommission: 'R$ 137.075,21',
-    meta: 'R$ 193.075,21',
-    status: 'cumprida'
+    status: 'Cumprida'
   },
   {
     name: 'Philip Wade',
     grossRevenue: 'R$ 168.075,23',
     totalCommission: 'R$ 194.075,22',
-    meta: 'R$ 194.075,22',
-    status: 'cumprida'
+    status: 'Cumprida'
   },
   {
     name: 'Tim Price',
     grossRevenue: 'R$ 224.075,23',
     totalCommission: 'R$ 194.075,24',
-    meta: 'R$ 194.075,24',
-    status: 'não atingiu'
+    status: 'Não atingiu'
   },
   {
     name: 'Carol Stevens',
     grossRevenue: 'R$ 263.075,23',
     totalCommission: 'R$ 194.075,27',
-    meta: 'R$ 194.075,27',
-    status: 'não atingiu'
+    status: 'Não atingiu'
   },
   {
     name: 'Amelia Parker',
     grossRevenue: 'R$ 111.078,23',
     totalCommission: 'R$ 12.075,23',
-    meta: 'R$ 194.075,23',
-    status: 'cumprida'
+    status: 'Cumprida'
   },
   {
     name: "Michael O'leary",
     grossRevenue: 'R$ 167.078,23',
     totalCommission: 'R$ 12.075,23',
-    meta: 'R$ 194.075,23',
-    status: 'cumprida'
+    status: 'Cumprida'
   },
   {
     name: 'Owen Tomsson',
     grossRevenue: 'R$ 66.075,23',
     totalCommission: 'R$ 00.075,23',
-    meta: 'R$ 194.075,23',
-    status: 'não atingiu'
+    status: 'Não atingiu'
   },
 ];
 
@@ -74,9 +66,9 @@ export default function CommissionsPage() {
             <h3 className="text-sm font-medium opacity-90">Receita bruta</h3>
             <p className="text-3xl font-bold">R$ 1.8 M</p>
             <div className="flex items-center mt-2">
-              <span className="text-green-300">↗ 17.5%</span>
-              <span className="text-sm ml-2 opacity-75">Essa semana</span>
+              <span className="text-blue-200">↗ 17.5%</span>
             </div>
+            <span className="text-xs opacity-75">Essa semana</span>
           </CardContent>
         </Card>
 
@@ -86,8 +78,8 @@ export default function CommissionsPage() {
             <p className="text-3xl font-bold">R$ 1.7 M</p>
             <div className="flex items-center mt-2">
               <span className="text-red-300">● 17.5%</span>
-              <span className="text-sm ml-2 opacity-75">Desde o mês passado</span>
             </div>
+            <span className="text-xs opacity-75">Desde o mês passado</span>
           </CardContent>
         </Card>
 
@@ -97,8 +89,8 @@ export default function CommissionsPage() {
             <p className="text-3xl font-bold">R$ 980 K</p>
             <div className="flex items-center mt-2">
               <span className="text-green-300">● 9.3%</span>
-              <span className="text-sm ml-2 opacity-75">Desde o ano passado</span>
             </div>
+            <span className="text-xs opacity-75">Desde o ano passado</span>
           </CardContent>
         </Card>
       </div>
@@ -117,10 +109,10 @@ export default function CommissionsPage() {
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
                 />
               </div>
-              <Button variant="default" className="flex items-center gap-2">
+              <Button variant="default" className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700">
                 <Filter className="w-4 h-4" />
                 Filtrar por Motivo
               </Button>
@@ -153,9 +145,9 @@ export default function CommissionsPage() {
                     <td className="py-4 px-4 text-gray-900">{item.totalCommission}</td>
                     <td className="py-4 px-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-900">{item.meta}</span>
+                        <span className="text-gray-900">{item.totalCommission}</span>
                         <Badge 
-                          variant={item.status === 'cumprida' ? 'success' : 'danger'}
+                          variant={item.status === 'Cumprida' ? 'success' : 'danger'}
                           className="ml-2"
                         >
                           {item.status}
@@ -176,9 +168,9 @@ export default function CommissionsPage() {
             <div className="flex items-center space-x-2">
               <Button variant="default" className="flex items-center">
                 <ChevronLeft className="w-4 h-4 mr-1" />
-                1
               </Button>
-              <Button variant="primary">2</Button>
+              <Button variant="primary" className="bg-blue-600 text-white">1</Button>
+              <Button variant="default">2</Button>
               <Button variant="default">3</Button>
               <Button variant="default">4</Button>
               <Button variant="default" className="flex items-center">
