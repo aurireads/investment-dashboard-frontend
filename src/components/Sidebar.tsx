@@ -1,48 +1,123 @@
 'use client';
 
 import { useState } from 'react';
-import { DollarSign, Briefcase, TrendingUp, Plus, Menu } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { 
+  BarChart3, 
+  Users, 
+  DollarSign, 
+  PieChart, 
+  TrendingUp,
+  Settings,
+  HelpCircle,
+  LogOut,
+  Menu,
+  X
+} from 'lucide-react';
+
+const navigation = [
+  { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
+  { name: 'Net New Money', href: '/dashboard/net-new-money', icon: TrendingUp },
+  { name: 'Custódia', href: '/custodia', icon: PieChart },
+  { name: 'Receitas', href: '/receitas', icon: DollarSign },
+  { name: 'Comissões', href: '/comissoes', icon: Users },
+];
+
+const settings = [
+  { name: 'Configurações', href: '/configuracoes', icon: Settings },
+  { name: 'Ajuda', href: '/ajuda', icon: HelpCircle },
+  { name: 'Sair', href: '/auth/login', icon: LogOut },
+];
 
 export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  
-  const menuItems = [
-    { icon: DollarSign, label: 'Overview', active: true },
-    { icon: Briefcase, label: 'Portfolio' },
-    { icon: TrendingUp, label: 'Analytics' },
-    { icon: Plus, label: 'Invest' },
-  ];
+  const pathname = usePathname();
 
   return (
-    <div className={`bg-white border-r border-gray-200 transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
-      <div className="p-4 border-b border-gray-200">
+    <div className={`bg-gray-900 text-white transition-all duration-300 flex flex-col ${
+      isCollapsed ? 'w-16' : 'w-64'
+    }`}>
+      {/* Header */}
+      <div className="p-4 border-b border-gray-700">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
-            <h1 className="text-xl font-bold text-gray-900">InvestPro</h1>
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+                <span className="text-white font-bold text-sm">B</span>
+              </div>
+              <span className="text-lg font-semibold">Banking</span>
+            </div>
           )}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-1 rounded-lg hover:bg-gray-100"
+            className="p-1 rounded-lg hover:bg-gray-800"
           >
-            <Menu className="w-5 h-5" />
+            {isCollapsed ? <Menu className="w-5 h-5" /> : <X className="w-5 h-5" />}
           </button>
         </div>
       </div>
-      
-      <nav className="mt-8">
-        {menuItems.map((item, index) => (
-          <a
-            key={index}
-            href="#"
-            className={`flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 ${
-              item.active ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' : ''
-            }`}
-          >
-            <item.icon className="w-5 h-5" />
-            {!isCollapsed && <span className="ml-3">{item.label}</span>}
-          </a>
-        ))}
+
+      {/* Navigation */}
+      <nav className="flex-1 px-4 py-6 space-y-2">
+        <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
+          {!isCollapsed && 'Menu principal'}
+        </div>
+        
+        {navigation.map((item) => {
+          const isActive = pathname === item.href || 
+            (item.href !== '/dashboard' && pathname.startsWith(item.href));
+          
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                isActive
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-800'
+              }`}
+            >
+              <item.icon className={`flex-shrink-0 w-5 h-5 ${
+                isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'
+              }`} />
+              {!isCollapsed && (
+                <span className="ml-3 truncate">{item.name}</span>
+              )}
+              {isCollapsed && (
+                <div className="absolute left-16 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
+                  {item.name}
+                </div>
+              )}
+            </Link>
+          );
+        })}
       </nav>
+
+      {/* Settings */}
+      <div className="px-4 py-4 border-t border-gray-700 space-y-2">
+        <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
+          {!isCollapsed && 'Ajustes'}
+        </div>
+        
+        {settings.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className="group flex items-center px-3 py-2 text-sm font-medium text-gray-300 rounded-lg hover:text-white hover:bg-gray-800 transition-colors"
+          >
+            <item.icon className="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-white" />
+            {!isCollapsed && (
+              <span className="ml-3 truncate">{item.name}</span>
+            )}
+            {isCollapsed && (
+              <div className="absolute left-16 ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
+                {item.name}
+              </div>
+            )}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
