@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { 
   BarChart3, 
   Users, 
@@ -35,16 +36,22 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className={`bg-gray-900 text-white transition-all duration-300 flex flex-col ${
+    <div className={`text-white transition-all duration-300 flex flex-col ${
       isCollapsed ? 'w-16' : 'w-64'
-    }`}>
+    }`} style={{ background: '#2D2D2D' }}>
       {/* Header */}
       <div className="p-4 border-b border-gray-700">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-sm">B</span>
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center mr-3">
+                <Image
+                  src="/icon.png" // O caminho correto deve começar com '/'
+                  alt="Banking logo"
+                  width={32}
+                  height={32}
+                  className="w-full h-full"
+                />
               </div>
               <span className="text-lg font-semibold">Banking</span>
             </div>

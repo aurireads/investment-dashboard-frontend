@@ -2,7 +2,6 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/components/Providers';
 import { Sidebar } from '@/components/Sidebar';
-import { Header } from '@/components/Header';
 import { Toaster } from 'sonner';
 
 // Importe o ThemeProvider
@@ -29,7 +28,7 @@ export default function RootLayout({
             <div className="flex min-h-screen">
               <Sidebar />
               <div className="flex-1 flex flex-col">
-                <Header />
+                {/* <Header /> */}
                 <main className="flex-1 p-8 overflow-y-auto">
                   {children}
                 </main>

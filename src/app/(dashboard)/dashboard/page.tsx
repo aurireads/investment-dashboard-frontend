@@ -1,10 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts';
-import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Filter, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 
 const topAssessorsData = [
   { name: 'Fabio Olivera', revenue: 'R$ 2.8 M', percentage: '7%' },
@@ -52,56 +53,54 @@ const assessorsTable = [
 ];
 
 export default function DashboardPage() {
+  const [selectedMonth, setSelectedMonth] = useState('Janeiro');
+
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen">
+    <div className="space-y-6 p-6 min-h-screen" style={{ background: '#2D2D2D' }}>
       {/* Main Metric Card */}
-      <Card className="bg-white">
+      <Card style={{ background: '#2D2D2D' }} className="border-0">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Captado Anual Total</h1>
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-4xl font-bold text-gray-900">R$ 355.000.000</span>
-                <span className="text-green-600 text-sm font-medium bg-green-100 px-2 py-1 rounded-full">↗ 37.8%</span>
-              </div>
+              <h1 className="text-2xl font-bold text-white">Captado Anual Total</h1>
+                <img src="/Valor.png" alt="Imagem de R$ 355.000.000 com gradiente de cor" width="300" />
             </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-600">Janeiro</p>
-              <button className="flex items-center text-sm text-gray-500 hover:text-gray-700">
-                Janeiro
-                <ChevronRight className="w-4 h-4 ml-1" />
-              </button>
+            <div className="relative">
+              <Button className="flex items-center gap-2 bg-gray-700 text-white hover:bg-gray-600 border-0">
+                <span className="text-sm">{selectedMonth}</span>
+                <ChevronDown className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-3 gap-6">
-            <div className="bg-green-600 text-white p-6 rounded-lg">
+            <div className="bg-[#3A3A3A] text-white p-6 rounded-lg border border-gray-600">
               <p className="text-sm opacity-90">Captado Anual</p>
               <p className="text-2xl font-bold">R$ 196 M</p>
-              <p className="text-sm opacity-90">↗ 24.3%</p>
+              <p className="text-green-500 text-sm">↗ 24.3%</p>
             </div>
-            <div className="bg-gray-800 text-white p-6 rounded-lg">
+            <div className="bg-[#3A3A3A] text-white p-6 rounded-lg border border-gray-600">
               <p className="text-sm opacity-90">Captado Semestral</p>
               <p className="text-2xl font-bold">R$ 98 M</p>
-              <p className="text-sm opacity-90">↗ 17.5%</p>
+              <p className="text-green-500 text-sm">↗ 17.5%</p>
             </div>
-            <div className="bg-blue-600 text-white p-6 rounded-lg">
+            <div className="bg-[#3A3A3A] text-white p-6 rounded-lg border border-gray-600">
               <p className="text-sm opacity-90">Captado Mensal</p>
               <p className="text-2xl font-bold">R$ 12.4 M</p>
-              <p className="text-sm opacity-90">↗ 8.8%</p>
+              <p className="text-green-500 text-sm">↗ 8.8%</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Assessors Table */}
-      <Card className="bg-white">
+      <Card style={{ background: '#2D2D2D' }} className="border-0">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Metas por assessor</CardTitle>
-              <p className="text-sm text-gray-600">Assessores ativos</p>
+              <CardTitle className="text-white">Metas por assessor</CardTitle>
+              <p className="text-sm text-gray-400">Assessores ativos</p>
             </div>
             <div className="flex gap-4">
               <div className="relative">
@@ -109,10 +108,10 @@ export default function DashboardPage() {
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="pl-10 pr-4 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
-              <Button variant="default" className="flex items-center gap-2">
+              <Button className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 border-0">
                 <Filter className="w-4 h-4" />
                 Filtrar por Motivo
               </Button>
@@ -123,33 +122,33 @@ export default function DashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Nome</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Meta Anual</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Captado Anual</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Pace Semanal</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Meta Mensal</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Captado Mensal</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Pace Mensal</th>
+                <tr className="border-b border-gray-600">
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Nome</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Meta Anual</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Captado Anual</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Pace Semanal</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Meta Mensal</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Captado Mensal</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-300">Pace Mensal</th>
                 </tr>
               </thead>
               <tbody>
                 {assessorsTable.map((assessor, index) => (
-                  <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={index} className="border-b border-gray-700 hover:bg-gray-700">
                     <td className="py-4 px-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center text-white font-medium text-sm">
                           {assessor.name.charAt(0)}
                         </div>
-                        <span className="font-medium">{assessor.name}</span>
+                        <span className="font-medium text-white">{assessor.name}</span>
                       </div>
                     </td>
-                    <td className="py-4 px-4 text-gray-900">{assessor.annual}</td>
-                    <td className="py-4 px-4 text-gray-900">{assessor.captured}</td>
-                    <td className="py-4 px-4 text-gray-900">{assessor.paceWeekly}</td>
-                    <td className="py-4 px-4 text-gray-900">{assessor.monthly}</td>
-                    <td className="py-4 px-4 text-gray-900">{assessor.monthlyCapture}</td>
-                    <td className="py-4 px-4 text-gray-900">{assessor.paceMensal}</td>
+                    <td className="py-4 px-4 text-white">{assessor.annual}</td>
+                    <td className="py-4 px-4 text-white">{assessor.captured}</td>
+                    <td className="py-4 px-4 text-white">{assessor.paceWeekly}</td>
+                    <td className="py-4 px-4 text-white">{assessor.monthly}</td>
+                    <td className="py-4 px-4 text-white">{assessor.monthlyCapture}</td>
+                    <td className="py-4 px-4 text-white">{assessor.paceMensal}</td>
                   </tr>
                 ))}
               </tbody>
@@ -157,19 +156,19 @@ export default function DashboardPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-600">
+          <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-600">
+            <p className="text-sm text-gray-400">
               Mostrando assessores 1 ao 8 de 30
             </p>
             <div className="flex items-center space-x-2">
-              <Button variant="default" className="flex items-center">
+              <Button className="flex items-center bg-gray-700 text-white hover:bg-gray-600 border-0">
                 <ChevronLeft className="w-4 h-4 mr-1" />
                 1
               </Button>
-              <Button variant="primary">2</Button>
-              <Button variant="default">3</Button>
-              <Button variant="default">4</Button>
-              <Button variant="default" className="flex items-center">
+              <Button className="bg-blue-600 text-white hover:bg-blue-700 border-0">2</Button>
+              <Button className="bg-gray-700 text-white hover:bg-gray-600 border-0">3</Button>
+              <Button className="bg-gray-700 text-white hover:bg-gray-600 border-0">4</Button>
+              <Button className="flex items-center bg-gray-700 text-white hover:bg-gray-600 border-0">
                 <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
