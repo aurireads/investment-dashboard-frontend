@@ -5,6 +5,9 @@ import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { Toaster } from 'sonner';
 
+// Importe o ThemeProvider
+import { ThemeProvider } from './(dashboard)/dashboard/components/ThemeProvider'; 
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -18,20 +21,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>
-          <div className="flex min-h-screen">
-            <Sidebar />
-            <div className="flex-1 flex flex-col">
-              <Header />
-              <main className="flex-1 p-8 overflow-y-auto">
-                {children}
-              </main>
+        {/* Envolva a aplicação com o ThemeProvider */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Providers>
+            <div className="flex min-h-screen">
+              <Sidebar />
+              <div className="flex-1 flex flex-col">
+                <Header />
+                <main className="flex-1 p-8 overflow-y-auto">
+                  {children}
+                </main>
+              </div>
             </div>
-          </div>
-          <Toaster position="bottom-right" />
-        </Providers>
+            <Toaster position="bottom-right" />
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );
