@@ -120,63 +120,57 @@ export default function NetNewMoneyPage() {
           <div className="lg:col-span-3">
             {/* Office View Main Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 rounded-lg dark:from-blue-600 dark:to-blue-700">
-                <p className="text-sm opacity-90">NNM 2024</p>
-                <p className="text-2xl font-bold">{metrics.nnm_2024}</p>
-                <div className="flex items-center mt-2">
-                  <span className="text-blue-200">↗ {metrics.nnm_2024_change}</span>
-                </div>
-                <p className="text-xs opacity-75">Essa semana</p>
-              </div>
-              <div className="bg-gray-800 text-white p-4 rounded-lg dark:bg-gray-800">
-                <p className="text-sm opacity-90">NNM Semestral</p>
-                <p className="text-2xl font-bold">{metrics.nnm_semester}</p>
-                <div className="flex items-center mt-2">
-                  <span className="text-red-300">● {metrics.nnm_semester_change}</span>
-                </div>
-                <p className="text-xs opacity-75">Desde o mês passado</p>
-              </div>
-              <div className="bg-green-600 text-white p-4 rounded-lg dark:bg-green-700">
-                <p className="text-sm opacity-90">NNM Mensal</p>
-                <p className="text-2xl font-bold">{metrics.nnm_monthly}</p>
-                <div className="flex items-center mt-2">
-                  <span className="text-green-300">● {metrics.nnm_monthly_change}</span>
-                </div>
-                <p className="text-xs opacity-75">Desde o ano passado</p>
-              </div>
+    <Image
+                src="/nnm.png"
+                alt="Card de NNM 2024"
+                width={358}
+                height={202}
+              />
+              <Image
+                src="/semestral.png"
+                alt="Card de NNM Semestral"
+                width={358}
+                height={202}
+              />
+              <Image
+                src="/mensal.png"
+                alt="Card de NNM Mensal"
+                width={358}
+                height={202}
+              />
             </div>
 
             {/* Charts Section */}
             <div className="space-y-6">
               {/* Net New Money Chart */}
-              <Card className="bg-white dark:bg-gray-800">
+              <Card  style={{ background: '#2D2D2D' }}>
                 <CardHeader>
                   <div className="flex justify-between items-center mb-4">
-                    <h4 className="text-lg font-semibold">Net New Money</h4>
+                    <h4 className="text-lg font-semibold text-gray-100">Net New Money</h4>
                     <div className="flex gap-2 text-sm">
-                      <span className="text-blue-600 font-medium dark:text-blue-500">2024</span>
-                      <span className="text-gray-500 dark:text-gray-400">Semestral</span>
-                      <span className="text-gray-500 dark:text-gray-400">Mensal</span>
+                      <span>2024</span>
+                      <span className="text-gray-400" >Semestral</span>
+                      <span className="text-gray-400">Mensal</span>
                     </div>
                   </div>
                   <div className="text-right mb-2">
-                    <p className="text-lg font-bold text-blue-600 dark:text-blue-500">{metrics.nnm_chart_peak}</p>
+                    <p className="text-lg font-bold">{metrics.nnm_chart_peak}</p>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <div className="h-48">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={monthlyData}>
-                        <XAxis 
-                          dataKey="month" 
-                          axisLine={false} 
+                        <XAxis
+                          dataKey="month"
+                          axisLine={false}
                           tickLine={false}
                           tick={{ fontSize: 12, fill: '#6B7280' }}
                         />
                         <YAxis hide />
-                        <Bar 
-                          dataKey="value" 
-                          fill="#3B82F6" 
+                        <Bar
+                          dataKey="value"
+                          fill="#3B82F6"
                           radius={[3, 3, 0, 0]}
                           maxBarSize={40}
                         />
@@ -187,12 +181,12 @@ export default function NetNewMoneyPage() {
               </Card>
 
               {/* Total Acumulado */}
-              <Card className="bg-white dark:bg-gray-800">
+              <Card  style={{ background: '#2D2D2D' }}>
                 <CardHeader>
                   <div className="flex justify-between items-center mb-4">
-                    <h4 className="text-lg font-semibold">Total Acumulado</h4>
+                    <h4 className="text-lg font-semibold text-gray-100">Total Acumulado</h4>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-teal-600 dark:text-cyan-500">{metrics.total_accumulated}</p>
+                      <p className="text-lg font-bold">{metrics.total_accumulated}</p>
                     </div>
                   </div>
                 </CardHeader>
@@ -206,11 +200,11 @@ export default function NetNewMoneyPage() {
                             <stop offset="95%" stopColor="#0891b2" stopOpacity={0}/>
                           </linearGradient>
                         </defs>
-                        <Area 
-                          type="monotone" 
-                          dataKey="value" 
-                          stroke="#0891b2" 
-                          fill="url(#colorGradient)" 
+                        <Area
+                          type="monotone"
+                          dataKey="value"
+                          stroke="#0891b2"
+                          fill="url(#colorGradient)"
                           strokeWidth={2}
                         />
                       </AreaChart>
@@ -227,15 +221,15 @@ export default function NetNewMoneyPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Henriques Performance */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="bg-white dark:bg-gray-800">
+            <Card className="dark:bg-gray-800">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Mostrando dados de</p>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Henrique Lima Santos</h3>
+                    <p className="text-sm text-gray-400">Mostrando dados de</p>
+                    <h3 className="text-lg font-semibold text-gray-100">Henrique Lima Santos</h3>
                   </div>
                   <div className="text-right">
-                    <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex gap-4 text-sm text-gray-400">
                       <span className="text-blue-600 font-medium dark:text-blue-500">2024</span>
                       <span>Semestral</span>
                       <span>Mensal</span>
@@ -254,8 +248,8 @@ export default function NetNewMoneyPage() {
                     </div>
                     <p className="text-xs opacity-75">Desde ontem</p>
                   </div>
-                  
-                  <div className="bg-gray-800 text-white p-4 rounded-lg dark:bg-gray-800">
+
+                  <div className="bg-gray-800 text-white p-4 rounded-lg">
                     <p className="text-sm opacity-90">NNM Semestral</p>
                     <p className="text-2xl font-bold">{advisorMetrics.nnm_semester}</p>
                     <div className="flex items-center mt-2">
@@ -263,7 +257,7 @@ export default function NetNewMoneyPage() {
                     </div>
                     <p className="text-xs opacity-75">Desde o mês passado</p>
                   </div>
-                  
+
                   <div className="bg-green-600 text-white p-4 rounded-lg dark:bg-green-700">
                     <p className="text-sm opacity-90">NNM Mensal</p>
                     <p className="text-2xl font-bold">{advisorMetrics.nnm_monthly}</p>
@@ -277,11 +271,11 @@ export default function NetNewMoneyPage() {
                 {/* Chart Section */}
                 <div className="space-y-6">
                   {/* Net New Money Chart */}
-                  <Card className="bg-white dark:bg-gray-800">
+                  <Card className="dark:bg-gray-800">
                     <CardHeader>
                       <div className="flex justify-between items-center mb-4">
-                        <h4 className="text-lg font-semibold">Net New Money</h4>
-                        <div className="flex gap-2 text-sm text-gray-500 dark:text-gray-400">
+                        <h4 className="text-lg font-semibold text-gray-100">Net New Money</h4>
+                        <div className="flex gap-2 text-sm text-gray-400">
                           <span>Anual</span>
                           <span>Semestral</span>
                           <span className="text-blue-600 font-medium dark:text-blue-500">Mensal</span>
@@ -291,13 +285,13 @@ export default function NetNewMoneyPage() {
                     <CardContent className="h-72">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={monthlyData} margin={{ top: 20, bottom: 20, left: 10, right: 10 }}>
-                          <XAxis 
-                            dataKey="month" 
-                            axisLine={false} 
+                          <XAxis
+                            dataKey="month"
+                            axisLine={false}
                             tickLine={false}
                             tick={{ fontSize: 12, fill: '#6B7280' }}
                           />
-                          <YAxis 
+                          <YAxis
                             tick={{ fontSize: 12, fill: '#6B7280' }}
                             domain={[0, 15]}
                             ticks={[2.5, 5, 10, 15]}
@@ -305,7 +299,7 @@ export default function NetNewMoneyPage() {
                             axisLine={false}
                             tickLine={false}
                           />
-                          <Bar 
+                          <Bar
                             dataKey="value"
                             shape={<CustomBar />}
                           />
@@ -315,10 +309,10 @@ export default function NetNewMoneyPage() {
                   </Card>
 
                   {/* Total Acumulado */}
-                  <Card className="bg-white dark:bg-gray-800">
+                  <Card className="dark:bg-gray-800">
                     <CardHeader>
                       <div className="flex justify-between items-center mb-4">
-                        <h4 className="text-lg font-semibold">Total Acumulado</h4>
+                        <h4 className="text-lg font-semibold text-gray-100">Total Acumulado</h4>
                         <div className="text-right">
                           <p className="text-lg font-bold text-teal-600">{advisorMetrics.total_accumulated}</p>
                         </div>
@@ -334,11 +328,11 @@ export default function NetNewMoneyPage() {
                                 <stop offset="95%" stopColor="#0891b2" stopOpacity={0}/>
                               </linearGradient>
                             </defs>
-                            <Area 
-                              type="monotone" 
-                              dataKey="value" 
-                              stroke="#0891b2" 
-                              fill="url(#colorGradient)" 
+                            <Area
+                              type="monotone"
+                              dataKey="value"
+                              stroke="#0891b2"
+                              fill="url(#colorGradient)"
                               strokeWidth={2}
                             />
                           </AreaChart>
@@ -350,19 +344,19 @@ export default function NetNewMoneyPage() {
               </CardContent>
             </Card>
           </div>
-          
+
           {/* Right Column - Top 5 Assessores */}
           <div className="lg:col-span-1">
-            <Card className="bg-white dark:bg-gray-800">
+            <Card className="dark:bg-gray-800">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold">Top 5 Assessores</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-gray-100">Top 5 Assessores</CardTitle>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Contribuição total</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500">vs. último ano</p>
+                    <p className="text-sm font-medium text-gray-400">Contribuição total</p>
+                    <p className="text-xs text-gray-500">vs. último ano</p>
                   </div>
                 </div>
-                <div className="flex gap-4 text-sm mt-2 text-gray-500 dark:text-gray-400">
+                <div className="flex gap-4 text-sm mt-2 text-gray-400">
                   <span>2024</span>
                   <span>Semestral</span>
                   <span className="text-blue-600 font-medium dark:text-blue-500">Mensal</span>
@@ -385,10 +379,10 @@ export default function NetNewMoneyPage() {
                           className="object-cover w-full h-full"
                         />
                       </div>
-                      <span className="text-sm font-medium dark:text-gray-200">{advisor.name}</span>
+                      <span className="text-sm font-medium text-gray-200">{advisor.name}</span>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-semibold dark:text-gray-200">{advisor.contribution}</p>
+                      <p className="text-sm font-semibold text-gray-200">{advisor.contribution}</p>
                       <Badge variant="success" className="text-xs">
                         {advisor.percentage}
                       </Badge>
@@ -404,31 +398,31 @@ export default function NetNewMoneyPage() {
   };
 
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen dark:bg-gray-900">
+    <div className="space-y-6 p-6 min-h-screen bg-[#2D2D2D]">
       {/* Header Tabs */}
-      <div className="bg-white rounded-lg shadow-sm dark:bg-gray-800">
-        <div className="flex border-b border-gray-200 dark:border-gray-700">
-          <button 
+      <div className="rounded-lg shadow-sm bg-[#3A3A3A]">
+        <div className="flex border-b border-gray-700">
+          <button
             onClick={() => setActiveTab('office')}
             className={`px-6 py-3 text-sm font-medium transition-colors ${
-              activeTab === 'office' 
-                ? 'text-white bg-blue-600 rounded-tl-lg border-b-2 border-blue-600 dark:bg-blue-700 dark:border-blue-700'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+              activeTab === 'office'
+                ? 'text-white rounded-tl-lg border-b-2 '
+                : 'text-gray-400 hover:text-gray-200'
             }`}
           >
             Visão Escritório
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('advisors')}
             className={`px-6 py-3 text-sm font-medium transition-colors ${
               activeTab === 'advisors'
-                ? 'text-white bg-blue-600 rounded-tr-lg border-b-2 border-blue-600 dark:bg-blue-700 dark:border-blue-700'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                ? 'text-white rounded-tr-lg border-b-2'
+                : 'text-gray-400 hover:text-gray-200'
             }`}
           >
             Visão Assessores
           </button>
-          <button className="px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+          <button className="px-6 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
             Visão Cliente
           </button>
         </div>

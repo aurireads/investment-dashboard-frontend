@@ -58,7 +58,7 @@ const commissionsData = [
 
 export default function CommissionsPage() {
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen dark:bg-gray-900">
+    <div className="space-y-6 p-6 bg-gray-50 min-h-screen dark:style={{ background: '#2D2D2D' }}">
       {/* Header Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white dark:from-blue-600 dark:to-blue-700">
@@ -109,7 +109,7 @@ export default function CommissionsPage() {
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:border-gray-700 w-64"
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:style={{ background: '#2D2D2D' }} dark:border-gray-700 w-64"
                 />
               </div>
               <Button variant="default" className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800">
@@ -132,7 +132,7 @@ export default function CommissionsPage() {
               </thead>
               <tbody>
                 {commissionsData.map((item, index) => (
-                  <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-900">
+                  <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:style={{ background: '#2D2D2D' }}">
                     <td className="py-4 px-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center text-white font-medium text-sm">

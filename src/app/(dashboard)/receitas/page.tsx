@@ -28,7 +28,7 @@ const COLORS = ['#6366F1', '#8B5CF6', '#06B6D4', '#F59E0B'];
 
 export default function RevenuePage() {
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen dark:bg-gray-900">
+    <div className="space-y-6 p-6 bg-gray-50 min-h-screen dark:style={{ background: '#2D2D2D' }}">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Receitas</h1>

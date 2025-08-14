@@ -2,7 +2,7 @@ import * as React from "react";
 
 export function Card({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm" {...props}>
+    <div className="rounded-xl border border-gray-700 bg-white dark:bg-gray-800 shadow-sm" {...props}>
       {children}
     </div>
   );

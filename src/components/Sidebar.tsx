@@ -101,7 +101,7 @@ export function Sidebar() {
                 <div className="absolute right-2 w-2 h-2 bg-white rounded-full"></div>
               )}
               {isCollapsed && (
-                <div className="absolute left-16 ml-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap shadow-lg border border-gray-700">
+                <div className="absolute left-16 ml-2 px-3 py-2 style={{ background: '#2D2D2D' }} text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap shadow-lg border border-gray-700">
                   {item.name}
                 </div>
               )}
@@ -127,7 +127,7 @@ export function Sidebar() {
               <span className="ml-3 truncate">{item.name}</span>
             )}
             {isCollapsed && (
-              <div className="absolute left-16 ml-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap shadow-lg border border-gray-700">
+              <div className="absolute left-16 ml-2 px-3 py-2 style={{ background: '#2D2D2D' }} text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap shadow-lg border border-gray-700">
                 {item.name}
               </div>
             )}
