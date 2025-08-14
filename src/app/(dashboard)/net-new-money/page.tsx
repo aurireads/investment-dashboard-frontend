@@ -3,24 +3,24 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, Text } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
-// Updated data to match the second image format
 const dotChartData = [
-  { month: 'Jan', value: 30, label: '' },
+  { month: 'Jan', value: 28, label: '' },
   { month: 'Fev', value: 32, label: '' },
-  { month: 'Mar', value: 28, label: '' },
+  { month: 'Mar', value: 30, label: '' },
   { month: 'Abr', value: 25, label: '' },
-  { month: 'Mai', value: 35, label: '' },
+  { month: 'Mai', value: 38, label: '' },
   { month: 'Jun', value: 40, label: 'R$ 33 M' },
-  { month: 'Jul', value: 38, label: '' },
-  { month: 'Ago', value: 35, label: '' },
-  { month: 'Set', value: 32, label: '' },
-  { month: 'Out', value: 30, label: '' },
-  { month: 'Nov', value: 28, label: '' },
-  { month: 'Dez', value: 33, label: '' },
+  { month: 'Jul', value: 35, label: '' },
+  { month: 'Ago', value: 32, label: '' },
+  { month: 'Set', value: 30, label: '' },
+  { month: 'Out', value: 28, label: '' },
+  { month: 'Nov', value: 22, label: '' },
+  { month: 'Dez', value: 26, label: '' },
 ];
 
 const cumulativeData = [
@@ -56,39 +56,48 @@ const advisorMetrics = {
   nnm_monthly: 'R$ 800 K',
   nnm_monthly_change: '9.3%',
   total_accumulated: 'R$ 1.4 B',
-  nnm_chart_peak: 'R$ 33 M'
+  nnm_chart_peak: 'R$ 13 M'
 };
 
 const topAdvisorsData = [
-  { name: 'Fábio Garcia', contribution: 'R$ 12.8 M', percentage: '11%' },
-  { name: 'Regina Melo', contribution: 'R$ 10.1 M', percentage: '7%' },
-  { name: 'Felipe Silva', contribution: 'R$ 9.6 M', percentage: '6%' },
-  { name: 'Fernanda Borges', contribution: 'R$ 9.5 M', percentage: '6%' },
-  { name: 'Gustavo Santos', contribution: 'R$ 7 M', percentage: '5%' },
+  { name: 'Fábio Garcia', contribution: 'R$ 12.8 M', percentage: '11%', imageSrc: '/advisor-images/fabio.png' },
+  { name: 'Regina Melo', contribution: 'R$ 10.1 M', percentage: '7%', imageSrc: '/advisor-images/regina.png' },
+  { name: 'Felipe Silva', contribution: 'R$ 9.6 M', percentage: '6%', imageSrc: '/advisor-images/felipe.png' },
+  { name: 'Fernanda Borges', contribution: 'R$ 9.5 M', percentage: '6%', imageSrc: '/advisor-images/fernanda.png' },
+  { name: 'Gustavo Santos', contribution: 'R$ 7 M', percentage: '5%', imageSrc: '/advisor-images/gustavo.png' },
 ];
 
+// COMPONENTE MODIFICADO - AQUI ESTÁ O GRÁFICO
 const CustomBar = (props: any) => {
   const { x, y, width, height, value, label } = props;
-  const numDots = Math.min(value, 40); // Cap at 40 for display
   const dots = [];
-  const dotSize = 6;
-  const dotGap = 1;
-  const dotsPerRow = 8; // More dots per row to match the second image
-  const rowGap = 1;
+  const dotSize = 3;
+  const dotGap = 0.5;
+  const dotsPerRow = 6; // 6 dots por linha para ficar mais compacto como na imagem
+  const rowGap = 0.5;
 
-  const totalRows = Math.ceil(numDots / dotsPerRow);
-  const totalHeight = totalRows * (dotSize + rowGap);
-  const startY = y + height - totalHeight;
+  const totalRows = Math.ceil(value / dotsPerRow);
+  const totalDotsHeight = totalRows * (dotSize + rowGap) - rowGap;
+  
+  // Começar do fundo para cima
+  const startY = y + height - totalDotsHeight;
   const startX = x + width / 2 - (dotsPerRow * (dotSize + dotGap) - dotGap) / 2;
 
-  for (let i = 0; i < numDots; i++) {
+  // Criar as bolinhas empilhadas de baixo para cima
+  for (let i = 0; i < value; i++) {
     const row = Math.floor(i / dotsPerRow);
     const col = i % dotsPerRow;
     const dotX = startX + col * (dotSize + dotGap);
-    const dotY = startY + row * (dotSize + rowGap);
+    const dotY = startY + (totalRows - 1 - row) * (dotSize + rowGap);
 
     dots.push(
-      <circle key={i} cx={dotX + dotSize / 2} cy={dotY + dotSize / 2} r={dotSize / 2} fill="#6366F1" />
+      <circle
+        key={i}
+        cx={dotX + dotSize / 2}
+        cy={dotY + dotSize / 2}
+        r={dotSize / 2}
+        fill="#6366F1"
+      />
     );
   }
 
@@ -97,15 +106,25 @@ const CustomBar = (props: any) => {
       {dots}
       {label && (
         <g>
-          <rect x={x + width / 2 - 30} y={y - 30} width={60} height={20} rx={8} fill="#4A5568" />
-          <polygon points={`${x + width / 2 - 5},${y - 10} ${x + width / 2 + 5},${y - 10} ${x + width / 2},${y - 5}`} fill="#4A5568" />
+          <rect
+            x={x + width / 2 - 25}
+            y={y - 35}
+            width={50}
+            height={18}
+            rx={9}
+            fill="#4A5568"
+          />
+          <polygon
+            points={`${x + width / 2 - 4},${y - 17} ${x + width / 2 + 4},${y - 17} ${x + width / 2},${y - 12}`}
+            fill="#4A5568"
+          />
           <text
             x={x + width / 2}
-            y={y - 20}
+            y={y - 26}
             fill="#FFF"
             textAnchor="middle"
             dominantBaseline="middle"
-            fontSize="11"
+            fontSize="10"
             fontWeight="500"
           >
             {label}
@@ -119,7 +138,7 @@ const CustomBar = (props: any) => {
 const CustomYAxisTick = (props: any) => {
   const { x, y, payload } = props;
   return (
-    <text x={x - 5} y={y + 4} fill="#9CA3AF" fontSize="12" textAnchor="end">
+    <text x={x - 8} y={y + 3} fill="#9CA3AF" fontSize="11" textAnchor="end">
       R$ {payload.value} M
     </text>
   );
@@ -136,32 +155,60 @@ export default function NetNewMoneyPage() {
       return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <Image
+                src="/nnm.png"
+                alt="Dashboard de métricas Net New Money para a visão de escritório, incluindo cartões de métricas e gráficos."
+                width={1200}
+                height={800}
+                layout="responsive"
+              />
+              <Image
+                src="/semestral.png"
+                alt="Dashboard de métricas Net New Money para a visão de escritório, incluindo cartões de métricas e gráficos."
+                width={1200}
+                height={800}
+                layout="responsive"
+              />
+              <Image
+                src="/mensal.png"
+                alt="Dashboard de métricas Net New Money para a visão de escritório, incluindo cartões de métricas e gráficos."
+                width={1200}
+                height={800}
+                layout="responsive"
+              />
+            </div>
+
             <div className="space-y-6">
               <Card style={{ backgroundColor: '#2D2D2D' }}>
                 <CardHeader>
                   <div className="flex justify-between items-center mb-4">
                     <h4 className="text-lg font-semibold text-gray-100">Net New Money</h4>
-                    <div className="flex gap-4 text-sm">
-                      <span className="font-medium">2024</span>
-                      <span className="text-gray-400">Semestral</span>
+                    <div className="flex gap-2 text-sm">
+                      <span className=" font-medium ">2024</span>
+                      <span className="text-gray-400" >Semestral</span>
                       <span className="text-gray-400">Mensal</span>
                     </div>
                   </div>
-
+                  <div className="text-right mb-2">
+                    <p className="text-lg font-bold text-blue-600 dark:text-blue-500"></p>
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64">
+                  <div className="h-48">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={dotChartData} margin={{ top: 40, bottom: 20, left: 60, right: 10 }}>
+                      <BarChart data={dotChartData} margin={{ top: 40, bottom: 20, left: 70, right: 10 }}>
                         <XAxis
                           dataKey="month"
                           axisLine={false}
                           tickLine={false}
                           tick={{ fontSize: 12, fill: '#6B7280' }}
                         />
-                        <YAxis 
+                        <YAxis
+                          type="number"
                           domain={[0, 40]}
                           ticks={[10, 20, 30, 40]}
+                          interval={0}
                           axisLine={false}
                           tickLine={false}
                           tick={<CustomYAxisTick />}
@@ -181,7 +228,7 @@ export default function NetNewMoneyPage() {
                   <div className="flex justify-between items-center mb-4">
                     <h4 className="text-lg font-semibold text-gray-100">Total Acumulado</h4>
                     <div className="text-right">
-                      <img src="/total.png" />
+                      <img src="total.png" />
                     </div>
                   </div>
                 </CardHeader>
@@ -224,7 +271,7 @@ export default function NetNewMoneyPage() {
                   </div>
                   <div className="text-right">
                     <div className="flex gap-4 text-sm text-gray-400">
-                      <span className="font-medium">2024</span>
+                      <span className=" font-medium">2024</span>
                       <span>Semestral</span>
                       <span>Mensal</span>
                     </div>
@@ -232,13 +279,37 @@ export default function NetNewMoneyPage() {
                 </div>
               </CardHeader>
               <CardContent>
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <Image
+                    src="/nnm.png"
+                    alt="Dashboard de métricas Net New Money para a visão de escritório, incluindo cartões de métricas e gráficos."
+                    width={1200}
+                    height={800}
+                    layout="responsive"
+                  />
+                  <Image
+                    src="/semestral.png"
+                    alt="Dashboard de métricas Net New Money para a visão de escritório, incluindo cartões de métricas e gráficos."
+                    width={1200}
+                    height={800}
+                    layout="responsive"
+                  />
+                  <Image
+                    src="/mensal.png"
+                    alt="Dashboard de métricas Net New Money para a visão de escritório, incluindo cartões de métricas e gráficos."
+                    width={1200}
+                    height={800}
+                    layout="responsive"
+                  />
+                </div>
+
                 <div className="space-y-6">
                   <Card style={{ backgroundColor: '#2D2D2D' }}>
                     <CardHeader>
                       <div className="flex justify-between items-center mb-4">
                         <h4 className="text-lg font-semibold text-gray-100">Net New Money</h4>
-                        <div className="flex gap-4 text-sm">
-                          <span className=" font-medium">2024</span>
+                        <div className="flex gap-2 text-sm">
+                          <span className="font-medium ">2024</span>
                           <span className="text-gray-400">Semestral</span>
                           <span className="text-gray-400">Mensal</span>
                         </div>
@@ -246,18 +317,20 @@ export default function NetNewMoneyPage() {
 
                     </CardHeader>
                     <CardContent>
-                      <div className="h-64">
+                      <div className="h-48">
                         <ResponsiveContainer width="100%" height="100%">
-                          <BarChart data={dotChartData} margin={{ top: 40, bottom: 20, left: 60, right: 10 }}>
+                          <BarChart data={dotChartData} margin={{ top: 40, bottom: 20, left: 70, right: 10 }}>
                             <XAxis
                               dataKey="month"
                               axisLine={false}
                               tickLine={false}
                               tick={{ fontSize: 12, fill: '#6B7280' }}
                             />
-                            <YAxis 
+                            <YAxis
+                              type="number"
                               domain={[0, 40]}
                               ticks={[10, 20, 30, 40]}
+                              interval={0}
                               axisLine={false}
                               tickLine={false}
                               tick={<CustomYAxisTick />}
@@ -276,8 +349,9 @@ export default function NetNewMoneyPage() {
                     <CardHeader>
                       <div className="flex justify-between items-center mb-4">
                         <h4 className="text-lg font-semibold text-gray-100">Total Acumulado</h4>
-                      <img src="/total.png" />
-
+                        <div className="text-right">
+                      <img src="total.png" />
+                        </div>
                       </div>
                     </CardHeader>
                     <CardContent>
@@ -317,27 +391,33 @@ export default function NetNewMoneyPage() {
                     <p className="text-xs text-gray-500">vs. último ano</p>
                   </div>
                 </div>
-                <div className="flex gap-4 text-sm mt-2 ">
+                <div className="flex gap-4 text-sm mt-2 text-gray-400">
                   <span>2024</span>
                   <span>Semestral</span>
-                  <span className="text-blue-500 font-medium">Mensal</span>
+                  <span className="text-blue-600 font-medium dark:text-blue-500">Mensal</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 {topAdvisorsData.map((advisor, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-semibold text-sm">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                         {index + 1}
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden">
-                        <span className="text-xs text-white">{advisor.name.split(' ').map(n => n[0]).join('')}</span>
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+                        <Image
+                          src={advisor.imageSrc}
+                          alt={`Foto de perfil de ${advisor.name}`}
+                          width={32}
+                          height={32}
+                          className="object-cover w-full h-full"
+                        />
                       </div>
                       <span className="text-sm font-medium text-gray-200">{advisor.name}</span>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-semibold text-gray-200">{advisor.contribution}</p>
-                      <Badge className="text-xs bg-green-600 text-white">
+                      <Badge variant="success" className="text-xs">
                         {advisor.percentage}
                       </Badge>
                     </div>
@@ -352,14 +432,14 @@ export default function NetNewMoneyPage() {
   };
 
   return (
-    <div className="space-y-6 p-6 min-h-screen" style={{ backgroundColor: '#1a1a1a' }}>
+    <div className="space-y-6 p-6 min-h-screen" style={{ backgroundColor: '#2D2D2D' }}>
       <div className="rounded-lg shadow-sm" style={{ backgroundColor: '#2D2D2D' }}>
         <div className="flex border-b border-gray-700">
           <button
             onClick={() => setActiveTab('office')}
             className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'office'
-                ? 'text-white border-b-2'
-                : 'text-gray-400 hover:text-gray-200'
+              ? 'text-white rounded-tl-lg border-b-2'
+              : 'text-gray-400 hover:text-gray-200'
               }`}
           >
             Visão Escritório
@@ -367,8 +447,8 @@ export default function NetNewMoneyPage() {
           <button
             onClick={() => setActiveTab('advisors')}
             className={`px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'advisors'
-                ? 'text-white border-b-2'
-                : 'text-gray-400 hover:text-gray-200'
+              ? 'text-white rounded-tr-lg border-b-2'
+              : 'text-gray-400 hover:text-gray-200'
               }`}
           >
             Visão Assessores
