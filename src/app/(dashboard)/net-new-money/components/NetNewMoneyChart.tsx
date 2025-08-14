@@ -48,7 +48,7 @@ export default function NetNewMoneyPage() {
       {/* Header Tabs */}
       <div className="bg-white rounded-lg shadow-sm">
         <div className="flex border-b border-gray-200">
-          <button className="px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-tl-lg border-b-2 border-blue-600">
+          <button className="px-6 py-3 text-sm font-medium text-whiterounded-tl-lg border-b-2 border-blue-600">
             Visão Escritório
           </button>
           <button className="px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">

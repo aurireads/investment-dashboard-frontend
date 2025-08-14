@@ -65,7 +65,7 @@ export function Sidebar() {
         </div>
         {!isCollapsed && (
           <div className="mt-2 flex items-center">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+            <div className="w-2 h-2 rounded-full mr-2"></div>
             <span className="text-xs text-gray-400">Modo escuro</span>
           </div>
         )}
@@ -87,7 +87,7 @@ export function Sidebar() {
               href={item.href}
               className={`group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 relative ${
                 isActive
-                  ? 'bg-blue-600 text-white shadow-lg'
+                  ? 'text-white shadow-lg'
                   : 'text-gray-300 hover:text-white hover:bg-gray-800'
               }`}
             >
