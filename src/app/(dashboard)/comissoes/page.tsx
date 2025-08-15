@@ -72,40 +72,13 @@ export default function CommissionsPage() {
       {/* Header Cards */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {/* Receita bruta card */}
-        <div className="p-4 rounded-lg" style={{ background: 'linear-gradient(135deg, #6b46c1 0%, #06b6d4 100%)' }}>
-          <div className="text-white">
-            <div className="text-sm opacity-90 mb-1">Receita bruta</div>
-            <div className="text-2xl font-bold mb-1">R$ 1.8 M</div>
-            <div className="text-xs opacity-80 mb-2">Essa semana</div>
-            <div className="flex items-center text-xs">
-              <span className="text-green-300">↗ 17.5%</span>
-            </div>
-          </div>
-        </div>
+<img src="bruta.png"  />
 
         {/* Receita líquida card */}
-        <div className="p-4 rounded-lg" style={{ backgroundColor: '#404040' }}>
-          <div className="text-white">
-            <div className="text-sm opacity-90 mb-1">Receita líquida</div>
-            <div className="text-2xl font-bold mb-1">R$ 1.7 M</div>
-            <div className="text-xs opacity-80 mb-2">Desde o mês passado</div>
-            <div className="flex items-center text-xs">
-              <span className="text-red-400">↘ 17.5%</span>
-            </div>
-          </div>
-        </div>
+<img src="liquida.png"  />
 
         {/* Comissão total card */}
-        <div className="p-4 rounded-lg" style={{ backgroundColor: '#404040' }}>
-          <div className="text-white">
-            <div className="text-sm opacity-90 mb-1">Comissão total</div>
-            <div className="text-2xl font-bold mb-1">R$ 980 K</div>
-            <div className="text-xs opacity-80 mb-2">Desde o ano passado</div>
-            <div className="flex items-center text-xs">
-              <span className="text-green-400">↗ 9.3%</span>
-            </div>
-          </div>
-        </div>
+<img src="comissao.png"  />
       </div>
 
       {/* Table Section */}
