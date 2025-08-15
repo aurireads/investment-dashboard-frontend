@@ -6,36 +6,43 @@ import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
 const topAdvisorsData = [
-  { name: 'Advisor 1', value: 'R$ 1.3 M', progress: 85 },
-  { name: 'Advisor 2', value: 'R$ 1.2 M', progress: 80 },
-  { name: 'Advisor 3', value: 'R$ 900 K', progress: 65 },
-  { name: 'Advisor 4', value: 'R$ 800 K', progress: 60 },
-  { name: 'Advisor 5', value: 'R$ 850 K', progress: 70 },
-  { name: 'Advisor 6', value: 'R$ 840 K', progress: 68 },
-  { name: 'Advisor 7', value: 'R$ 810 K', progress: 62 },
-  { name: 'Advisor 8', value: 'R$ 790 K', progress: 58 },
-  { name: 'Advisor 9', value: 'R$ 600 K', progress: 45 },
-  { name: 'Advisor 10', value: 'R$ 500 K', progress: 38 },
+  { name: 'Advisor 1', value: 'R$ 1.2 M', progress: 80, imageSrc: '/advisor-images/Fabio.png' },
+  { name: 'Advisor 2', value: 'R$ 1.0 M', progress: 65, imageSrc: '/advisor-images/Regina.png' },
+  { name: 'Advisor 3', value: 'R$ 900 K', progress: 58, imageSrc: '/advisor-images/Felipe.png' },
+  { name: 'Advisor 4', value: 'R$ 890 K', progress: 70, imageSrc: '/advisor-images/Fernanda.png' },
+  { name: 'Advisor 5', value: 'R$ 850 K', progress: 65, imageSrc: '/advisor-images/Gustavo.png' },
+  { name: 'Advisor 6', value: 'R$ 840 K', progress: 68, imageSrc: '/advisor-images/Regina.png' },
+  { name: 'Advisor 7', value: 'R$ 810 K', progress: 62, imageSrc: '/advisor-images/7.png' },
+  { name: 'Advisor 8', value: 'R$ 790 K', progress: 58, imageSrc: '/advisor-images/Renata.png' },
+  { name: 'Advisor 9', value: 'R$ 500 K', progress: 45, imageSrc: '/advisor-images/9.png' },
+  { name: 'Advisor 10', value: 'R$ 100 K', progress: 38, imageSrc: '/advisor-images/Gustavo.png' },
 ];
 
 const pieData = [
-  { name: 'Reinaldo', value: 34 },
-  { name: 'Joseph', value: 24 },
-  { name: 'Marina', value: 20 },
-  { name: 'Bianca', value: 22 },
+  { name: 'Reinaldo', value: 34, revenue: 'R$ 990 K' },
+  { name: 'Joseph', value: 24, revenue: 'R$ 850 K' },
+  { name: 'Marina', value: 20, revenue: 'R$ 900 K' },
+  { name: 'Renata', value: 22, revenue: 'R$ 750 K' },
 ];
 
 const PIE_COLORS = ['#3B82F6', '#8B5CF6', '#F59E0B', '#10B981'];
 
-const TOP_ADVISORS_COLORS = [
-  '#A855F7', // Roxo claro
-  '#4B5563', // Cinza escuro
-  '#3B82F6', // Azul claro
-  '#10B981', // Verde escuro
-  '#EF4444', // Vermelho
-];
+const TOP_ADVISORS_BAR_COLORS = ['#F59E0B', '#4B5563', '#F97316', '#10B981']; // Amarelo, Cinza, Laranja, Verde
 
 export default function RevenuePage() {
+  const getBarColor = (index: number) => {
+    switch (index) {
+      case 0:
+        return '#F59E0B'; // Amarelo para o primeiro
+      case 1:
+        return '#4B5563'; // Cinza para o segundo
+      case 2:
+        return '#F97316'; // Laranja para o terceiro
+      default:
+        return '#10B981'; // Verde para o restante
+    }
+  };
+
   return (
     <div className="space-y-6 p-6 min-h-screen" style={{ backgroundColor: '#2D2D2D' }}>
       {/* Header */}
@@ -55,7 +62,7 @@ export default function RevenuePage() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-gray-100">Receita Total em Janeiro</h2>
-<img src="/receita.png"/>
+              <img src="/receita.png" />
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-400">Total de Assessores</p>
@@ -76,18 +83,24 @@ export default function RevenuePage() {
                 {topAdvisorsData.map((advisor, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium text-sm" style={{ backgroundColor: TOP_ADVISORS_COLORS[index % TOP_ADVISORS_COLORS.length] }}>
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium text-sm">
                         {index + 1}
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
-                        <span className="text-xs">👤</span>
+                      <div className="w-8 h-8 rounded-full overflow-hidden">
+                        <Image
+                          src={advisor.imageSrc}
+                          alt={`Foto de perfil de ${advisor.name}`}
+                          width={32}
+                          height={32}
+                          className="object-cover w-full h-full"
+                        />
                       </div>
                     </div>
                     <div className="flex-1 mx-4">
                       <div className="w-full bg-gray-700 rounded-full h-6 relative overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-300"
-                          style={{ width: `${advisor.progress}%`, backgroundColor: '#10B981' }}
+                          style={{ width: `${advisor.progress}%`, backgroundColor: getBarColor(index) }}
                         ></div>
                       </div>
                     </div>
@@ -139,7 +152,7 @@ export default function RevenuePage() {
                     <span className="text-sm text-gray-300">{item.name}</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm font-medium text-gray-100">R$ 880 K</span>
+                    <span className="text-sm font-medium text-gray-100">{item.revenue}</span>
                     <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                   </div>
                 </div>

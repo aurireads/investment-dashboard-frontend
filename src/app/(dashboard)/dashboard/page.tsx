@@ -52,6 +52,12 @@ const assessorsTable = [
   { name: 'Owen Tomsson', annual: 'R$ 26.0 M', captured: 'R$ 135.0 M', paceWeekly: 'R$ 190.50 %', monthly: 'R$ 5.0 M', monthlyCapture: 'R$ 22.0 M', paceMensal: 'R$ 69.9 %' },
 ];
 
+// Função para determinar cor do valor captado (vermelho para valores baixos)
+const getCapturedColor = (name: string) => {
+  const redValues = ["Philip Wade", "Tim Price", "Amelia Parker", "Michael O'leary"];
+  return redValues.includes(name) ? "text-red-500" : "text-white";
+};
+
 export default function DashboardPage() {
   const [selectedMonth, setSelectedMonth] = useState('Janeiro');
 
@@ -108,10 +114,10 @@ export default function DashboardPage() {
                 <input
                   type="text"
                   placeholder="Buscar"
-                  className="pl-10 pr-4 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="pl-10 pr-4 py-2 border border-gray-600 bg-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
-              <Button className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 border-0">
+              <Button className="flex items-center gap-2 text-white border-0">
                 <Filter className="w-4 h-4" />
                 Filtrar por Motivo
               </Button>
@@ -137,18 +143,17 @@ export default function DashboardPage() {
                   <tr key={index} className="border-b border-gray-700 hover:bg-gray-700">
                     <td className="py-4 px-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center text-white font-medium text-sm">
-                          {assessor.name.charAt(0)}
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium text-sm">
                         </div>
                         <span className="font-medium text-white">{assessor.name}</span>
                       </div>
                     </td>
                     <td className="py-4 px-4 text-white">{assessor.annual}</td>
-                    <td className="py-4 px-4 text-white">{assessor.captured}</td>
-                    <td className="py-4 px-4 text-white">{assessor.paceWeekly}</td>
+                    <td className={`py-4 px-4 ${getCapturedColor(assessor.name)}`}>{assessor.captured}</td>
+                    <td className="py-4 px-4 text-green-500">{assessor.paceWeekly}</td>
                     <td className="py-4 px-4 text-white">{assessor.monthly}</td>
                     <td className="py-4 px-4 text-white">{assessor.monthlyCapture}</td>
-                    <td className="py-4 px-4 text-white">{assessor.paceMensal}</td>
+                    <td className="py-4 px-4 text-green-500">{assessor.paceMensal}</td>
                   </tr>
                 ))}
               </tbody>
@@ -164,13 +169,14 @@ export default function DashboardPage() {
               <Button className="flex items-center bg-gray-700 text-white hover:bg-gray-600 border-0">
                 <ChevronLeft className="w-4 h-4 mr-1" />
                 1
-              </Button>
-              <Button className="bg-blue-600 text-white hover:bg-blue-700 border-0">2</Button>
-              <Button className="bg-gray-700 text-white hover:bg-gray-600 border-0">3</Button>
-              <Button className="bg-gray-700 text-white hover:bg-gray-600 border-0">4</Button>
-              <Button className="flex items-center bg-gray-700 text-white hover:bg-gray-600 border-0">
-                <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
+            </Button>
+            <Button className="px-3 py-1 bg-gray-600 text-white border-gray-600 rounded">1</Button>
+            <Button className="px-3 py-1 bg-gray-700 text-gray-300 hover:bg-gray-600 border-gray-600 rounded">2</Button>
+            <Button className="px-3 py-1 bg-gray-700 text-gray-300 hover:bg-gray-600 border-gray-600 rounded">3</Button>
+            <Button className="px-3 py-1 bg-gray-700 text-gray-300 hover:bg-gray-600 border-gray-600 rounded">4</Button>
+            <Button className="p-2 bg-gray-700 text-gray-300 hover:bg-gray-600 border-gray-600 rounded">
+              <ChevronRight className="w-4 h-4" />
+            </Button>
             </div>
           </div>
         </CardContent>

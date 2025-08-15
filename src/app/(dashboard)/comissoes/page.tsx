@@ -152,7 +152,7 @@ export default function CommissionsPage() {
                 <tr key={index} className="border-b border-gray-700">
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium text-sm">
                         {item.name.charAt(0)}
                       </div>
                       <span className="text-white">{item.name}</span>
